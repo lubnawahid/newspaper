@@ -1,13 +1,24 @@
 import 'dart:convert';
-
 import 'package:http/http.dart' as http;
+
 
 import '../model/models.dart';
 
+class ApiService{
+  Future<List<Articles_model>> getArticle() async{
+    final url="https://newsapi.org/v2/everything?q=bitcoin&apiKey=4de117aa14174d659d3854ed1d07b522";
 
+    var response=await http.get(Uri.parse(url));
+    if(response.statusCode==200){
+      var body=json.decode(response.body);
 
-Future<News>fetchAlbum() async{
-  var responce = await http.get(Uri.parse('https://newsapi.org/v2/everything?q=tesla&from=2023-07-20&sortBy=publishedAt&apiKey=4de117aa14174d659d3854ed1d07b522https://newsapi.org/v2/everything?q=tesla&from=2023-07-20&sortBy=publishedAt&apiKey=4de117aa14174d659d3854ed1d07b522https://newsapi.org/v2/everything?q=tesla&from=2023-07-20&sortBy=publishedAt&apiKey=4de117aa14174d659d3854ed1d07b522https://newsapi.org/v2/everything?q=tesla&from=2023-07-20&sortBy=publishedAt&apiKey=4de117aa14174d659d3854ed1d07b522https://newsapi.org/v2/everything?q=tesla&from=2023-07-20&sortBy=publishedAt&apiKey=4de117aa14174d659d3854ed1d07b522https://newsapi.org/v2/everything?q=tesla&from=2023-07-20&sortBy=publishedAt&apiKey=4de117aa14174d659d3854ed1d07b522'));
-  var news = jsonDecode(responce.body);
-  return News.fromJson(news);
+      List<Articles_model> _data=List<Articles_model>.from(
+          body['articles'].map((e) => Articles_model.fromJson(e)).toList());
+      return _data;
+    }
+    else{
+      List<Articles_model> _data = [];
+      return _data;
+    }
+  }
 }

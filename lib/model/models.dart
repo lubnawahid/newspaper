@@ -1,21 +1,33 @@
-class News{
-  int? totalResults;
-  int? id;
-  String? status;
+import 'package:newspaper/model/source.dart';
 
-  News({this.totalResults, this.id, this.status});
 
-  News.fromJson(Map<String, dynamic> json) {
-    totalResults = json['totalResults'];
-    id = json['id'];
-    status = json['status'];
-  }
+class Articles_model{
+  Map<String,dynamic>? source;
+  String? author;
+  String? title='';
+  String? description='';
+  String? url='';
+  String? urlToImage='';
+  String? publishedAt='';
+  String? content='';
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['totalResults'] = this.totalResults;
-    data['id'] = this.id;
-    data['status'] = this.status;
-    return data;
+  Articles_model({
+    this.source,this.author,
+    this.title,this.description,
+    this.url,this.urlToImage,
+    this.publishedAt,this.content,
+  });
+
+  factory Articles_model.fromJson(Map<String , dynamic> json){
+    return Articles_model(
+        source:json['source'],
+        author: json['author'],
+        title: json['title'],
+        description: json['description'],
+        url: json['url'],
+        urlToImage: json['urlToImage'],
+        publishedAt: json['publishedAt'],
+        content: json['content']
+    );
   }
 }
